@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Login</string>
+    <string name="login_text">Please, log in</string>
+    <string name="welcome_text">Welcome!</string>
+    <string name="login_button">Login</string>
+    <string name="email_hint">E-mail</string>
+    <string name="password_hint">Password</string>
+    <string name="incorrect_hint">Incorrect username or password</string>
+    <string name="back_button">Go back</string>
+</resources>

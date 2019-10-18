@@ -8,31 +8,34 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
-import androidx.navigation.findNavController
+import androidx.databinding.DataBindingUtil
+import com.mad.login.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private val _email = "admin@example.com"
     private val _password = "admin"
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        val loginButton = findViewById<Button>(R.id.login_button)
+        binding.loginButton.setOnClickListener{ onLogin(it) }
+    }
 
-        loginButton.setOnClickListener{ onLogin(it) }
+    override fun onResume() {
+        super.onResume()
+        binding.emailInput.setText("")
+        binding.passwordInput.setText("")
     }
 
     private fun onLogin(button: View) {
-        val emailInput = findViewById<TextView>(R.id.email_input)
-        val passwordInput = findViewById<TextView>(R.id.password_input)
-        val errorText = findViewById<TextView>(R.id.error_message)
-//        val text = "${emailInput.text}: ${passwordInput.text}"
-//        val toast = Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT)
-//        toast.show()
-        if (emailInput.text.toString() == _email && passwordInput.text.toString() == _password) {
+        val emailInputText = binding.emailInput.text.toString()
+        val passwordInputText = binding.passwordInput.text.toString()
+        val errorText = binding.errorMessage
+        if (emailInputText == _email && passwordInputText == _password) {
             errorText.visibility = View.INVISIBLE
             val intent = Intent(this, WelcomeActivity::class.java)
             startActivity(intent)
